@@ -17,19 +17,25 @@ func set_raised() -> void:
 	var default_pos = screen_y_middle
 	
 	if Input.is_action_pressed("lance_up" + str(player)):
-		position.y = upper_pos
+		position.y = lerpf(position.y, upper_pos, 0.5)
+		#position.y = upper_pos
 	elif Input.is_action_pressed("lance_down" + str(player)):
-		position.y = lower_pos
+		position.y = lerpf(position.y, lower_pos, 0.5)
+		#position.y = lower_pos
 	else:
-		position.y = default_pos
+		position.y = lerpf(position.y, default_pos, 0.5)
+		#position.y = default_pos
 	
 func set_forward() -> void:
 	if Input.is_action_pressed("lance_forward" + str(player)):
-		position.x = knight_pos_x + max_x
+		position.x = lerpf(position.x, knight_pos_x + max_x, 0.5)
+		#position.x = knight_pos_x + max_x
 	elif Input.is_action_pressed("lance_backward" + str(player)):
-		position.x = knight_pos_x - min_x
+		position.x = lerpf(position.x, knight_pos_x - min_x, 0.5)
+		#position.x = knight_pos_x - min_x
 	else:
-		position.x = knight_pos_x
+		position.x = lerpf(position.x, knight_pos_x, 0.5)
+		#position.x = knight_pos_x
 
 func _process(delta: float) -> void:
 	set_raised()

@@ -1,13 +1,16 @@
-[gd_scene load_steps=8 format=3 uid="uid://m88u6k08j3tu"]
+[gd_scene load_steps=11 format=3 uid="uid://m88u6k08j3tu"]
 
 [ext_resource type="Script" path="res://knight.gd" id="1_qfrtn"]
 [ext_resource type="Script" path="res://shield.gd" id="2_pegyd"]
+[ext_resource type="Texture2D" uid="uid://dr0j2irdqsuvs" path="res://sprites/Character.png" id="2_qcan1"]
 [ext_resource type="Script" path="res://lance.gd" id="2_xoymb"]
-[ext_resource type="Texture2D" uid="uid://b54xusxe87pp1" path="res://icon.svg" id="3_6lm6m"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_c1wfm"]
+[ext_resource type="Texture2D" uid="uid://dqbl7l6vfp5ce" path="res://sprites/Mount.png" id="4_84ddr"]
+[ext_resource type="Texture2D" uid="uid://ej2b6ihc4c8k" path="res://sprites/lance.png" id="4_ayk31"]
+[ext_resource type="Texture2D" uid="uid://c1ysfqu086wkn" path="res://sprites/shield.png" id="6_h13bq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ttckp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c1wfm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jyw0q"]
 
@@ -16,20 +19,27 @@
 [node name="Knight" type="CharacterBody2D" parent="."]
 script = ExtResource("1_qfrtn")
 
-[node name="Character" type="Sprite2D" parent="Knight"]
-texture = ExtResource("3_6lm6m")
-
-[node name="CharacterCollision" type="CollisionShape2D" parent="Knight"]
-shape = SubResource("RectangleShape2D_c1wfm")
-
 [node name="Lance" type="CharacterBody2D" parent="Knight"]
 script = ExtResource("2_xoymb")
 
 [node name="LanceSprite" type="Sprite2D" parent="Knight/Lance"]
-texture = ExtResource("3_6lm6m")
+rotation = 1.5708
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("4_ayk31")
 
 [node name="LanceCollision" type="CollisionShape2D" parent="Knight/Lance"]
 shape = SubResource("RectangleShape2D_ttckp")
+
+[node name="Mount" type="Sprite2D" parent="Knight"]
+scale = Vector2(-0.2, 0.2)
+texture = ExtResource("4_84ddr")
+
+[node name="Character" type="Sprite2D" parent="Knight"]
+scale = Vector2(-0.2, 0.2)
+texture = ExtResource("2_qcan1")
+
+[node name="CharacterCollision" type="CollisionShape2D" parent="Knight"]
+shape = SubResource("RectangleShape2D_c1wfm")
 
 [node name="Shield" type="CharacterBody2D" parent="Knight"]
 position = Vector2(0, 52)
@@ -37,7 +47,8 @@ script = ExtResource("2_pegyd")
 offset = 100
 
 [node name="Sprite2D" type="Sprite2D" parent="Knight/Shield"]
-texture = ExtResource("3_6lm6m")
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("6_h13bq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Knight/Shield"]
 shape = SubResource("RectangleShape2D_jyw0q")
