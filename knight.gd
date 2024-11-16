@@ -1,33 +1,17 @@
 extends CharacterBody2D
-enum Position {UP, DOWN, DEFAULT} 
 
-@export var SPEED = 300.0
+@export var player: Global.Player
+@export var speed = 200
+var min_x = 0
+var max_x = DisplayServer.window_get_size().x
 
-func _physics_process(delta: float) -> void:
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction := Input.get_axis("ui_left", "ui_right")
-	if direction:
-		velocity.x = direction * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-
+	
+func get_input():
+	var horizontal = Input.get_action_strength("knight_forward" + str(player)) - Input.get_action_strength("knight_backward" + str(player))
+	velocity.x = horizontal * speed
+	position.x = clampi(position.x, min_x, max_x)
+	
+func _process(delta: float) -> void:
+	print(str(player))
+	get_input()
 	move_and_slide()
-
-func _process(delta) -> void:
-	if Input.is_action_pressed("shield_up0"):
-		shield_to_pos(Position.UP)
-	elif Input.is_action_pressed("shield_down0"):
-		shield_to_pos(Position.DOWN)
-	else:
-		shield_to_pos(Position.DEFAULT)
-	
-	
-func shield_to_pos(pos : Position) -> void:
-	match pos:
-		Position.UP:
-			print("raised")
-		Position.DOWN:
-			print("lowered")
-		_:
-			print("default")
