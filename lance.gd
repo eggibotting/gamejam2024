@@ -13,14 +13,10 @@ func _ready() -> void:
 func set_raised() -> void:	
 	if Input.is_action_pressed("lance_up" + str(player)):
 		position.y = lerpf(position.y, hand_offset.y - offset_y, 0.5)
-		#position.y = upper_pos
 	elif Input.is_action_pressed("lance_down" + str(player)):
 		position.y = lerpf(position.y, hand_offset.y + offset_y, 0.5)
-		#position.y = lower_pos
 	else:
 		position.y = lerpf(position.y, hand_offset.y, 0.5)
-		#position.y = default_pos
-	print(position.x)
 	
 func set_forward() -> void:
 	if Input.is_action_pressed("lance_forward" + str(player)):
