@@ -1,41 +1,34 @@
-extends CharacterBody2D
+extends Area2D
 
-var screen_y_middle = (DisplayServer.window_get_size().y)/2
 @onready var player = $"..".player
-@export var offset: int = 50
-@export var max_x : int = 50
-@export var min_x : int = 50
-@onready var knight_pos_x = $"..".position.x
+@export var offset_y: int = 50
+@export var offset_x : int = 50
+@onready var knight_pos = $"..".position
 
+var hand_offset: Vector2i = Vector2i(110, -116)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
 
-func set_raised() -> void:
-	var lower_pos = screen_y_middle + offset
-	var upper_pos = screen_y_middle - offset
-	var default_pos = screen_y_middle
-	
+func set_raised() -> void:	
 	if Input.is_action_pressed("lance_up" + str(player)):
-		position.y = lerpf(position.y, upper_pos, 0.5)
+		position.y = lerpf(position.y, hand_offset.y - offset_y, 0.5)
 		#position.y = upper_pos
 	elif Input.is_action_pressed("lance_down" + str(player)):
-		position.y = lerpf(position.y, lower_pos, 0.5)
+		position.y = lerpf(position.y, hand_offset.y + offset_y, 0.5)
 		#position.y = lower_pos
 	else:
-		position.y = lerpf(position.y, default_pos, 0.5)
+		position.y = lerpf(position.y, hand_offset.y, 0.5)
 		#position.y = default_pos
+	print(position.x)
 	
 func set_forward() -> void:
 	if Input.is_action_pressed("lance_forward" + str(player)):
-		position.x = lerpf(position.x, knight_pos_x + max_x, 0.5)
-		#position.x = knight_pos_x + max_x
+		position.x = lerpf(position.x, hand_offset.x + offset_x, 0.5)
 	elif Input.is_action_pressed("lance_backward" + str(player)):
-		position.x = lerpf(position.x, knight_pos_x - min_x, 0.5)
-		#position.x = knight_pos_x - min_x
+		position.x = lerpf(position.x, hand_offset.x - offset_x, 0.5)
 	else:
-		position.x = lerpf(position.x, knight_pos_x, 0.5)
-		#position.x = knight_pos_x
+		position.x = lerpf(position.x, hand_offset.x, 0.5)
 
 func _process(delta: float) -> void:
 	set_raised()
